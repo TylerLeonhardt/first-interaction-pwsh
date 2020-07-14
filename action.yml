@@ -1,0 +1,6 @@
+name: 'Container Action Template (PowerShell edition)'
+description: 'Get started with Container actions using PowerShell'
+author: 'TylerLeonhardt'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
