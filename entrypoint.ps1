@@ -52,13 +52,6 @@ $issueType = $isIssue ? 'issue' : 'pull request';
 # Add a comment to the appropriate place
 Write-Host "Adding message: $message to $issueType $($issue.number)"
 if ($isIssue) {
-    await client.issues.createComment({
-    owner: issue.owner,
-    repo: issue.repo,
-    issue_number: issue.number,
-    body: message
-    });
-
     New-GitHubComment -Issue $issue.number -Body (Get-GitHubInput -Name issue-message)
 } else {
     New-GitHubComment -Issue $issue.number -Body (Get-GitHubInput -Name pr-message)

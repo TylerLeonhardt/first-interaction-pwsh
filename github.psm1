@@ -33,7 +33,7 @@ function isFirstIssue($creator, $CurrentIssue) {
 
   $issues = ,(Get-GitHubIssue -Creator $creator)
 
-  if ($issues.Count === 0) {
+  if (!$issues.Count) {
     return $true
   }
 
@@ -51,12 +51,12 @@ function isFirstPull($Creator,$CurrentPullRequest) {
   # Provide console output if we loop for a while.
   $pulls = ,(Get-GitHubPullRequest -State All)
 
-  if ($pulls.Count === 0) {
+  if (!$pulls.Count) {
     return $true
   }
 
   foreach ($pull in $pulls) {
-    if ($pull.user.login === $creator -and $pull.number -lt $CurrentPullRequest) {
+    if ($pull.user.login -eq $creator -and $pull.number -lt $CurrentPullRequest) {
       return $false
     }
   }
