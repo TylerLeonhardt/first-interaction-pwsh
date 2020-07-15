@@ -50,7 +50,7 @@ function isFirstIssue($creator, $CurrentIssue) {
 
 # No way to filter pulls by creator
 function isFirstPull($Creator,$CurrentPullRequest) {
-  # Provide console output if we loop for a while.
+  
   $pulls = ,(Get-GitHubPullRequest -State All)
 
   if (!$pulls.Count) {
@@ -62,6 +62,8 @@ function isFirstPull($Creator,$CurrentPullRequest) {
       return $false
     }
   }
+
+  return $true
 }
 
 Export-ModuleMember -Function Get-GitHubActionInput,Get-GitHubActionContext,isFirstIssue,isFirstPull
