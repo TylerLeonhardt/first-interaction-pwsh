@@ -12,7 +12,7 @@ if (!$token) {
 $secureString = $token | ConvertTo-SecureString -AsPlainText -Force
 $cred = [System.Management.Automation.PSCredential]::new("username is ignored", $secureString)
 Set-GitHubAuthentication -Credential $cred
-$repoArgs = $token -split '/'
+$repoArgs = $env:GITHUB_REPOSITORY -split '/'
 Set-GitHubConfiguration -DefaultOwnerName $repoArgs[0] -DefaultRepositoryName $repoArgs[1]
 
 $context = Get-GitHubContext
