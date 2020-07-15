@@ -62,4 +62,4 @@ function isFirstPull($Creator,$CurrentPullRequest) {
   }
 }
 
-Export-ModuleMember -Function Get-Input,Get-GitHubContext,isFirstIssue,isFirstPull
+Export-ModuleMember -Function Get-GitHubInput,Get-GitHubContext,isFirstIssue,isFirstPull
