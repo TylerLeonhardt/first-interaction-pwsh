@@ -41,21 +41,22 @@ if (!$context.payload.sender) {
     throw "Internal error, no sender provided by GitHub"
 }
 
-$creator = $context.payload.sender.login;
-$issue = $context.payload.issue;
+$creator = $context.payload.sender.login
 if ($isIssue) {
     $issueType = "issue"
     if (!$issueMessage) {
         Write-Host "Skipping. No message configured for type: $issueType"
     }
-    $firstContribution = isFirstIssue -Creator $creator -CurrentIssue $issue.number
+    $issueOrPrNumber = $context.payload.issue.number
+    $firstContribution = isFirstIssue -Creator $creator -CurrentIssue $issueOrPrNumber
     $commentMessage = $issueMessage
 } else {
     $issueType = "pull request"
     if (!$prMessage) {
         Write-Host "Skipping. No message configured for type: $issueType"
     }
-    $firstContribution = isFirstPull -Creator $creator -CurrentPullRequest $issue.number
+    $issueOrPrNumber = $context.payload.pull_request.number
+    $firstContribution = isFirstPull -Creator $creator -CurrentPullRequest $issueOrPrNumber
     $commentMessage = $prMessage
 }
 
@@ -65,6 +66,6 @@ if (!$firstContribution) {
 }
 
 # Add a comment to the appropriate place
-Write-Host "Adding message: $commentMessage to $issueType $($issue.number)"
-$comment = New-GitHubComment -Issue $issue.number -Body $commentMessage
+Write-Host "Adding message: $commentMessage to $issueType $($issueOrPrNumber)"
+$comment = New-GitHubComment -Issue $issueOrPrNumber -Body $commentMessage
 Write-Host -ForegroundColor Green "Done! Comment can be found here: $($comment.html_url)"
