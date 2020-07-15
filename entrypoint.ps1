@@ -35,7 +35,7 @@ if (!$context.payload.sender) {
 }
 
 $creator = $context.payload.sender.login;
-$issue = $context.issue;
+$issue = $context.payload.issue;
 if ($isIssue) {
     $firstContribution = isFirstIssue -Creator $creator -CurrentIssue $issue.number
 } else {
