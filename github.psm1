@@ -1,4 +1,5 @@
-function Get-GitHubInput {
+# This should go in PowerShellForGitHub or another Actions specific module
+function Get-GitHubActionInput {
     param(
         # Name of the input
         [Parameter(Mandatory)]
@@ -13,7 +14,8 @@ function Get-GitHubInput {
     }
 }
 
-function Get-GitHubContext {
+# This should go in PowerShellForGitHub or another Actions specific module
+function Get-GitHubActionContext {
     if ($env:GITHUB_EVENT_PATH) {
         $payload = (Get-Content -Raw $env:GITHUB_EVENT_PATH) | ConvertFrom-Json
     }
@@ -62,4 +64,4 @@ function isFirstPull($Creator,$CurrentPullRequest) {
   }
 }
 
-Export-ModuleMember -Function Get-GitHubInput,Get-GitHubContext,isFirstIssue,isFirstPull
+Export-ModuleMember -Function Get-GitHubActionInput,Get-GitHubActionContext,isFirstIssue,isFirstPull

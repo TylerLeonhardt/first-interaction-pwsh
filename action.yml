@@ -8,11 +8,9 @@ inputs:
   issue-message:
     description: 'Comment to post on an individual''s first issue'
     required: false
-    default: "# Message with markdown.\nThis is the message that will be displayed on users' first issue."
   pr-message:
     description: 'Comment to post on an individual''s first pull request'
     required: false
-    default: "Message that will be displayed on users' first pr. Look, a `code block` for markdown."
 runs:
   using: 'docker'
   image: 'Dockerfile'
