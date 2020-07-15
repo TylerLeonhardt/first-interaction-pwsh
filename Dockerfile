@@ -6,5 +6,6 @@ RUN Install-Module PowerShellForGitHub -Force -Scope AllUsers
 COPY LICENSE README.md /
 
 COPY entrypoint.ps1 /entrypoint.ps1
+COPY github.psm1 /github.psm1
 
 ENTRYPOINT ["pwsh", "-Command", "/entrypoint.ps1"]
