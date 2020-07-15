@@ -7,7 +7,7 @@ function Get-GitHubInput {
     )
 
     $Name = ($Name -replace " ","_").ToUpper()
-    $var = Get-Variable env:INPUT_$Name
+    $var = Get-Item Env:/INPUT_$Name
     if ($var) {
         $var.Value
     }
