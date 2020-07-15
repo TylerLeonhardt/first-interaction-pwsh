@@ -1,4 +1,4 @@
-name: 'First interaction'
+name: 'First interaction - pwsh edition'
 description: 'Greet new contributors when they create their first issue or open their first pull request'
 author: 'GitHub'
 inputs:
