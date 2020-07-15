@@ -66,5 +66,5 @@ if (!$firstContribution) {
 
 # Add a comment to the appropriate place
 Write-Host "Adding message: $commentMessage to $issueType $($issue.number)"
-New-GitHubComment -Issue $issue.number -Body $commentMessage
+$comment = New-GitHubComment -Issue $issue.number -Body $commentMessage
 Write-Host -ForegroundColor Green "Done! Comment can be found here: $($comment.html_url)"
