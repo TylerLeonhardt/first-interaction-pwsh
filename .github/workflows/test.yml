@@ -1,3 +1,4 @@
+---
 name: Testing
 
 on:
@@ -15,3 +16,6 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: "#### Hi 👋\nCongrats on opening your first issue, have you looked at the [troubleshooting steps](https://github.com)?"
         pr-message: "#### Hi 👋\nCongrats on opening your first pull request, have you looked at the [contributing guide](https://github.com)?"
+    - name: Super Duper Linter
+      uses: JustinGrote/Super-Duper-Linter@preview
+      if: ${{ github.event_name == 'pull_request' }}
