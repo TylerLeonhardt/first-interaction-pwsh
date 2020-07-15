@@ -9,7 +9,7 @@ if (!$token) {
 }
 
 # Setup PowerShellForGitHub for use in GitHub Actions
-$secureString = $env:GITHUB_TOKEN | ConvertTo-SecureString -AsPlainText -Force
+$secureString = $token | ConvertTo-SecureString -AsPlainText -Force
 $cred = [System.Management.Automation.PSCredential]::new("username is ignored", $secureString)
 Set-GitHubAuthentication -Credential $cred
 $repoArgs = $token -split '/'
