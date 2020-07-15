@@ -13,3 +13,5 @@ jobs:
     - uses: TylerLeonhardt/first-interaction-pwsh@master
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "#### Hi 👋\nCongrats on opening your first issue, have you looked at the [troubleshooting steps](https://github.com)?"
+        pr-message: "#### Hi 👋\nCongrats on opening your first pull request, have you looked at the [contributing guide](https://github.com)?"
