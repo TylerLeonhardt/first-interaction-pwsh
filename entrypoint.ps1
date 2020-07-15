@@ -2,6 +2,7 @@ $ProgressPreference = 'Ignore'
 $ErrorActionPreference = 'Stop'
 
 Import-Module $PSScriptRoot/github.psm1
+[System.Environment]::GetEnvironmentVariables()
 $token = Get-GitHubInput -Name repo-token
 if (!$token) {
     throw "repo-token not specified"
