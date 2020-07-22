@@ -1,13 +1,14 @@
 $ProgressPreference = 'Ignore'
 $ErrorActionPreference = 'Stop'
 
-Import-Module $PSScriptRoot/github.psm1
-
 # Setup PowerShellForGitHub for use in GitHub Actions.
 $secureString = Get-ActionInput -Name repo-token -Required | ConvertTo-SecureString -AsPlainText -Force
 Set-GitHubAuthentication -Credential ([System.Management.Automation.PSCredential]::new("username is ignored", $secureString))
 $repo = Get-ActionRepo
 Set-GitHubConfiguration -DefaultOwnerName $repo.Owner -DefaultRepositoryName $repo.Repo
+
+# Import helper module used later.
+Import-Module $PSScriptRoot/helper.psm1
 
 # Check to make sure they configued at least one message.
 $issueMessage = Get-ActionInput -Name issue-message
