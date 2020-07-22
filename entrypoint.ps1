@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 
 Import-Module $PSScriptRoot/github.psm1
 
-$token = Get-GitHubActionInput -Name repo-token
+$token = Get-ActionInput -Name repo-token
 if (!$token) {
     throw "repo-token not specified"
 }
@@ -16,13 +16,13 @@ $repoArgs = $env:GITHUB_REPOSITORY -split '/'
 Set-GitHubConfiguration -DefaultOwnerName $repoArgs[0] -DefaultRepositoryName $repoArgs[1]
 
 # Check to make sure they configued at least one message.
-$issueMessage = Get-GitHubActionInput -Name issue-message
-$prMessage = Get-GitHubActionInput -Name pr-message
+$issueMessage = Get-ActionInput -Name issue-message
+$prMessage = Get-ActionInput -Name pr-message
 if (!$issueMessage -and !$prMessage) {
     throw "Action must have at least one of issue-message or pr-message set."
 }
 
-$context = Get-GitHubActionContext
+$context = Get-ActionContext
 if ($context.payload.action -ne 'opened') {
     Write-Host 'No issue or PR was opened, skipping'
     return
@@ -42,12 +42,12 @@ if (!$context.payload.sender) {
 }
 
 $creator = $context.payload.sender.login
+$issueOrPrNumber = Get-ActionIssue | Select-Object -ExpandProperty Number
 if ($isIssue) {
     $issueType = "issue"
     if (!$issueMessage) {
         Write-Host "Skipping. No message configured for type: $issueType"
     }
-    $issueOrPrNumber = $context.payload.issue.number
     $firstContribution = isFirstIssue -Creator $creator -CurrentIssue $issueOrPrNumber
     $commentMessage = $issueMessage
 } else {
@@ -55,7 +55,6 @@ if ($isIssue) {
     if (!$prMessage) {
         Write-Host "Skipping. No message configured for type: $issueType"
     }
-    $issueOrPrNumber = $context.payload.pull_request.number
     $firstContribution = isFirstPull -Creator $creator -CurrentPullRequest $issueOrPrNumber
     $commentMessage = $prMessage
 }

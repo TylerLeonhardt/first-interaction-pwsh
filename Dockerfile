@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/powershell:lts-alpine-3.10
 SHELL ["pwsh", "-Command"]
 
-RUN Install-Module PowerShellForGitHub -Force -Scope AllUsers
+RUN Install-Module PowerShellForGitHub,GitHubActions -Force -Scope AllUsers
 
 COPY LICENSE README.md /
 
