@@ -3,17 +3,11 @@ $ErrorActionPreference = 'Stop'
 
 Import-Module $PSScriptRoot/github.psm1
 
-$token = Get-ActionInput -Name repo-token
-if (!$token) {
-    throw "repo-token not specified"
-}
-
 # Setup PowerShellForGitHub for use in GitHub Actions.
-$secureString = $token | ConvertTo-SecureString -AsPlainText -Force
-$cred = [System.Management.Automation.PSCredential]::new("username is ignored", $secureString)
-Set-GitHubAuthentication -Credential $cred
-$repoArgs = $env:GITHUB_REPOSITORY -split '/'
-Set-GitHubConfiguration -DefaultOwnerName $repoArgs[0] -DefaultRepositoryName $repoArgs[1]
+$secureString = Get-ActionInput -Name repo-token -Required | ConvertTo-SecureString -AsPlainText -Force
+Set-GitHubAuthentication -Credential ([System.Management.Automation.PSCredential]::new("username is ignored", $secureString))
+$repo = Get-ActionRepo
+Set-GitHubConfiguration -DefaultOwnerName $repo.Owner -DefaultRepositoryName $repo.Repo
 
 # Check to make sure they configued at least one message.
 $issueMessage = Get-ActionInput -Name issue-message
