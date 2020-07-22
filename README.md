@@ -1,54 +1,22 @@
-# Container Action GitHub Ops
+# First Interaction (`pwsh` edition!)
 
-To get started,
-click the
-`Use this template`
-button on this repository
-[which will create a new repository based on this template](https://github.blog/2019-06-06-generate-new-repositories-with-repository-templates/).
+An action for responding to the first issue and PR that a user opens.
 
-Then modify the code after the
-`# Put custom code after here`
-comment in
-`entrypoint.ps1`.
+# Usage
 
-> NOTE: Don't forget to change the README as well with your specific info
-
-## Depending on this Action in your workflows
-
-Add this step to your GitHub Actions workflow yaml steps:
+See [action.yml](action.yml)
 
 ```yaml
-- uses: TylerLeonhardt/container-action-github-ops@master
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+steps:
+- uses: TylerLeonhardt/first-interaction-pwsh@master
+  with:
+    repo-token: ${{ secrets.GITHUB_TOKEN }}
+    issue-message: "# Message with markdown.\nThis is the message that will be displayed on users' first issue."
+    pr-message: "Message that will be displayed on users' first pr. Look, a `code block` for markdown."
 ```
 
-> NOTE: Since this is a container-based action, it can only run on linux. Make sure that your job that runs this step only has something like:
-> ```yaml
-> runs-on: ubuntu-latest
-> ```
+This repo is using this Action so if you'd like to see a full example, checkout [the test.yml file](.github/workflows/test.yml).
 
-A very basic YAML might look like this:
+# License
 
-```yaml
-name: CI
-
-on:
-  pull_request:
-
-jobs:
-  lint:
-    name: Do the thing
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: TylerLeonhardt/container-action-github-ops@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-## Contents
-
-* [PowerShellForGitHub](https://github.com/Microsoft/PowerShellForGitHub) module
-  * Already authenticated using the `GITHUB_TOKEN` environment variable
-  * Default `OwnerName` and Default `Repository` configuration already set
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
